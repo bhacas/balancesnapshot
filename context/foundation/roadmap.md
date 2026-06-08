@@ -3,7 +3,7 @@ project: BalanceSnapshot
 version: 1
 status: draft
 created: 2026-06-05
-updated: 2026-06-05
+updated: 2026-06-08
 prd_version: 1
 main_goal: speed
 top_blocker: time
@@ -27,7 +27,7 @@ The current landscape of budgeting apps is too high-friction, forcing a daily tr
 
 | ID | Change ID | Outcome (user can …) | Prerequisites | PRD refs | Status |
 |---|---|---|---|---|---|
-| S-01 | manage-accounts | user can add, edit, and delete accounts, classifying them as assets or liabilities | — | US-01, FR-001, FR-002 | ready |
+| S-01 | manage-accounts | user can add, edit, and delete accounts, classifying them as assets or liabilities | — | US-01, FR-001, FR-002 | done |
 | S-02 | create-snapshot | user can create and backdate a snapshot by entering current balances for their accounts | S-01 | US-02, FR-003 | proposed |
 | S-04 | net-worth-dashboard | user can see their true Net Worth calculated and charted over time | S-02 | US-04, FR-004, FR-005 | proposed |
 | S-03 | edit-delete-snapshots | user can fix mistakes in past snapshots | S-02 | US-03, FR-003 | proposed |
@@ -60,7 +60,7 @@ Foundations below assume these are present and do NOT re-scaffold them.
 - **Blockers:** —
 - **Unknowns:** —
 - **Risk:** Lowest risk conceptually, but requires establishing the Supabase database schema and RLS policies for the first time.
-- **Status:** ready
+- **Status:** done
 
 ### S-02: Create a monthly snapshot
 
@@ -121,3 +121,4 @@ Foundations below assume these are present and do NOT re-scaffold them.
 
 ## Done
 
+- **S-01: user can add, edit, and delete accounts, classifying them as assets or liabilities** — Archived 2026-06-08 → `context/archive/2026-06-08-manage-accounts/`. Lesson: —.

@@ -1,6 +1,7 @@
 ---
 change_id: manage-accounts
-status: implementing
+status: archived
+archived_at: 2026-06-08T10:07:53Z
 updated: 2026-06-08
 created: 2026-06-08
 ---
