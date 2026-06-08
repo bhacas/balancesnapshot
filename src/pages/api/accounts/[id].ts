@@ -27,7 +27,10 @@ export const PUT: APIRoute = async ({ request, cookies, params }) => {
     const body = await request.json();
     const parsed = accountSchema.safeParse(body);
     if (!parsed.success) {
-      return new Response(JSON.stringify({ error: parsed.error.issues }), { status: 400 });
+      return new Response(JSON.stringify({ error: parsed.error.issues }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -42,12 +45,18 @@ export const PUT: APIRoute = async ({ request, cookies, params }) => {
       .single();
 
     if (error) {
-      return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+      return new Response(JSON.stringify({ error: error.message }), {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      });
     }
 
     return new Response(JSON.stringify(data), { status: 200, headers: { "Content-Type": "application/json" } });
   } catch (_err) {
-    return new Response(JSON.stringify({ error: "Invalid Request" }), { status: 400 });
+    return new Response(JSON.stringify({ error: "Invalid Request" }), {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 };
 
@@ -64,10 +73,13 @@ export const DELETE: APIRoute = async ({ request, cookies, params }) => {
   const id = params.id;
   if (!id) return new Response("Missing ID", { status: 400 });
 
-  const { error } = await supabase.from("accounts").update({ is_active: false }).eq("id", id);
+  const { error } = await supabase.from("accounts").update({ is_active: false }).eq("id", id).select().single();
 
   if (error) {
-    return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 
   return new Response(JSON.stringify({ success: true }), {

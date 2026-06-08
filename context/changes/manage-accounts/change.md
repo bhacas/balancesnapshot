@@ -2,6 +2,7 @@
 change_id: manage-accounts
 status: implementing
 updated: 2026-06-08
+created: 2026-06-08
 ---
 
 # Manage Accounts

@@ -180,11 +180,11 @@ Build the accounts list view, create/edit modals, and integrate with the API.
 ### Phase 4: React Frontend
 
 #### Automated
-- [x] 4.1 Install Shadcn components.
-- [x] 4.2 Build succeeds.
+- [x] 4.1 Install Shadcn components. — c67331a
+- [x] 4.2 Build succeeds. — c67331a
 
 #### Manual
-- [x] 4.3 User can create a new asset and liability account.
-- [x] 4.4 User can edit an existing account's name or type.
-- [x] 4.5 User can delete an account.
-- [x] 4.6 Validation errors show a toast notification.
+- [x] 4.3 User can create a new asset and liability account. — c67331a
+- [x] 4.4 User can edit an existing account's name or type. — c67331a
+- [x] 4.5 User can delete an account. — c67331a
+- [x] 4.6 Validation errors show a toast notification. — c67331a
