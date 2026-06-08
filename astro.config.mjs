@@ -12,6 +12,9 @@ export default defineConfig({
   integrations: [react(), sitemap()],
   vite: {
     plugins: [tailwindcss()],
+    optimizeDeps: {
+      exclude: ["astro:env/server"],
+    },
   },
   adapter: cloudflare(),
   env: {

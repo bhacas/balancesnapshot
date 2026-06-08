@@ -171,20 +171,20 @@ Build the accounts list view, create/edit modals, and integrate with the API.
 ### Phase 3: Astro API Endpoints
 
 #### Automated
-- [x] 3.1 Linting passes.
+- [x] 3.1 Linting passes. — 43cecd8
 
 #### Manual
-- [x] 3.2 Endpoints return 401 when unauthenticated.
-- [x] 3.3 Endpoints correctly read/write to the Supabase database.
+- [x] 3.2 Endpoints return 401 when unauthenticated. — 43cecd8
+- [x] 3.3 Endpoints correctly read/write to the Supabase database. — 43cecd8
 
 ### Phase 4: React Frontend
 
 #### Automated
-- [ ] 4.1 Install Shadcn components.
-- [ ] 4.2 Build succeeds.
+- [x] 4.1 Install Shadcn components.
+- [x] 4.2 Build succeeds.
 
 #### Manual
-- [ ] 4.3 User can create a new asset and liability account.
-- [ ] 4.4 User can edit an existing account's name or type.
-- [ ] 4.5 User can delete an account.
-- [ ] 4.6 Validation errors show a toast notification.
+- [x] 4.3 User can create a new asset and liability account.
+- [x] 4.4 User can edit an existing account's name or type.
+- [x] 4.5 User can delete an account.
+- [x] 4.6 Validation errors show a toast notification.
