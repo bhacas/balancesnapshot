@@ -166,16 +166,16 @@ Build the accounts list view, create/edit modals, and integrate with the API.
 ### Phase 2: Shared Types
 
 #### Automated
-- [x] 2.1 Type checking passes.
+- [x] 2.1 Type checking passes. — b83a728
 
 ### Phase 3: Astro API Endpoints
 
 #### Automated
-- [ ] 3.1 Linting passes.
+- [x] 3.1 Linting passes.
 
 #### Manual
-- [ ] 3.2 Endpoints return 401 when unauthenticated.
-- [ ] 3.3 Endpoints correctly read/write to the Supabase database.
+- [x] 3.2 Endpoints return 401 when unauthenticated.
+- [x] 3.3 Endpoints correctly read/write to the Supabase database.
 
 ### Phase 4: React Frontend
 
