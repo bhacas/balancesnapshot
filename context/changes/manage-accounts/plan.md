@@ -158,15 +158,15 @@ Build the accounts list view, create/edit modals, and integrate with the API.
 ### Phase 1: Database Schema & RLS
 
 #### Automated
-- [x] 1.1 Database migration applies successfully.
+- [x] 1.1 Database migration applies successfully. — fe0f005
 
 #### Manual
-- [x] 1.2 RLS policies verify that a user can only access their own accounts.
+- [x] 1.2 RLS policies verify that a user can only access their own accounts. — fe0f005
 
 ### Phase 2: Shared Types
 
 #### Automated
-- [ ] 2.1 Type checking passes.
+- [x] 2.1 Type checking passes.
 
 ### Phase 3: Astro API Endpoints
 
