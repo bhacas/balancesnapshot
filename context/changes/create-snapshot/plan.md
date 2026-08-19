@@ -60,4 +60,4 @@ Implement the core snapshot feature allowing users to capture their active accou
    - [x] 3.4 Implement a basic list/table view below the button to display historical snapshots.
 
 4. **Phase 4: Dashboard Integration**
-   - [x] 4.1 Import and render `<SnapshotManager client:load />` in `src/pages/dashboard.astro`.
+   - [x] 4.1 Import and render `<SnapshotManager client:load />` in `src/pages/dashboard.astro`. — b10fd6a
