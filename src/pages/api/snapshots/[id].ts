@@ -65,22 +65,14 @@ export const PUT: APIRoute = async ({ request, cookies, params }) => {
 
     const { entries, date } = parsed.data;
 
-    if (date) {
-        const { error: updateError } = await supabase.from("snapshots").update({ created_at: date }).eq("id", id);
-        if (updateError) throw new Error(updateError.message);
-    }
+    // Use atomic RPC for update
+    const { error: rpcError } = await supabase.rpc("update_snapshot_with_entries", {
+      p_snapshot_id: id,
+      p_entries: entries,
+      ...(date ? { p_date: date } : {}),
+    });
 
-    const { error: deleteError } = await supabase.from("snapshot_entries").delete().eq("snapshot_id", id);
-    if (deleteError) throw new Error(deleteError.message);
-
-    const newEntries = entries.map(e => ({
-        snapshot_id: id,
-        account_id: e.account_id,
-        balance: e.balance
-    }));
-
-    const { error: insertError } = await supabase.from("snapshot_entries").insert(newEntries);
-    if (insertError) throw new Error(insertError.message);
+    if (rpcError) throw new Error(rpcError.message);
 
     return new Response(JSON.stringify({ success: true }), { status: 200, headers: { "Content-Type": "application/json" } });
   } catch (err: any) {

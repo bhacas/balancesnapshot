@@ -1,7 +1,7 @@
 ---
 change_id: edit-delete-snapshots
 title: Edit delete snapshots
-status: implemented
+status: impl_reviewed
 created: 2026-08-20
 updated: 2026-08-20
 archived_at: null
