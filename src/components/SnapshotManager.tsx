@@ -42,12 +42,12 @@ export default function SnapshotManager() {
   const handleDelete = async (id: string) => {
     if (!confirm("Are you sure you want to delete this snapshot?")) return;
     try {
-        const res = await fetch(`/api/snapshots/${id}`, { method: "DELETE" });
-        if (!res.ok) throw new Error("Failed to delete snapshot");
-        toast.success("Snapshot deleted");
-        void fetchData();
-    } catch (err) {
-        toast.error("Failed to delete snapshot");
+      const res = await fetch(`/api/snapshots/${id}`, { method: "DELETE" });
+      if (!res.ok) throw new Error("Failed to delete snapshot");
+      toast.success("Snapshot deleted");
+      void fetchData();
+    } catch (_err) {
+      toast.error("Failed to delete snapshot");
     }
   };
 
@@ -64,7 +64,12 @@ export default function SnapshotManager() {
           }}
         >
           <DialogTrigger asChild>
-            <Button disabled={accounts.length === 0} onClick={() => setIsAddOpen(true)}>
+            <Button
+              disabled={accounts.length === 0}
+              onClick={() => {
+                setIsAddOpen(true);
+              }}
+            >
               <Plus className="mr-2 h-4 w-4" /> Record Snapshot
             </Button>
           </DialogTrigger>
@@ -88,27 +93,27 @@ export default function SnapshotManager() {
       {loading ? (
         <div className="text-muted-foreground py-8 text-center">Loading...</div>
       ) : (
-        <SnapshotList 
-          snapshots={snapshots} 
+        <SnapshotList
+          snapshots={snapshots}
           onDelete={handleDelete}
           onEdit={(s) => {
-              setEditingSnapshot(s);
-              setIsAddOpen(true);
-          }} 
+            setEditingSnapshot(s);
+            setIsAddOpen(true);
+          }}
         />
       )}
     </div>
   );
 }
 
-function SnapshotList({ 
-    snapshots, 
-    onDelete, 
-    onEdit 
-}: { 
-    snapshots: SnapshotWithEntries[]; 
-    onDelete: (id: string) => void;
-    onEdit: (s: SnapshotWithEntries) => void;
+function SnapshotList({
+  snapshots,
+  onDelete,
+  onEdit,
+}: {
+  snapshots: SnapshotWithEntries[];
+  onDelete: (id: string) => void;
+  onEdit: (s: SnapshotWithEntries) => void;
 }) {
   if (snapshots.length === 0) {
     return <div className="text-muted-foreground italic">No snapshots recorded yet.</div>;
@@ -135,13 +140,28 @@ function SnapshotList({
             </span>
           </div>
           <div className="flex items-center space-x-4">
-              <div className="text-muted-foreground text-sm">{snapshot.entries.length} accounts recorded</div>
-              <Button variant="ghost" size="icon" onClick={() => onEdit(snapshot)} title="Edit">
-                  <Pencil className="h-4 w-4" />
-              </Button>
-              <Button variant="ghost" size="icon" className="text-red-500 hover:text-red-700 hover:bg-red-50" onClick={() => onDelete(snapshot.id)} title="Delete">
-                  <Trash2 className="h-4 w-4" />
-              </Button>
+            <div className="text-muted-foreground text-sm">{snapshot.entries.length} accounts recorded</div>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => {
+                onEdit(snapshot);
+              }}
+              title="Edit"
+            >
+              <Pencil className="h-4 w-4" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-red-500 hover:bg-red-50 hover:text-red-700"
+              onClick={() => {
+                onDelete(snapshot.id);
+              }}
+              title="Delete"
+            >
+              <Trash2 className="h-4 w-4" />
+            </Button>
           </div>
         </div>
       ))}
@@ -149,7 +169,15 @@ function SnapshotList({
   );
 }
 
-function SnapshotForm({ accounts, onSuccess, initialSnapshot }: { accounts: Account[]; onSuccess: () => void; initialSnapshot?: SnapshotWithEntries }) {
+function SnapshotForm({
+  accounts,
+  onSuccess,
+  initialSnapshot,
+}: {
+  accounts: Account[];
+  onSuccess: () => void;
+  initialSnapshot?: SnapshotWithEntries;
+}) {
   const getTodayStr = () => {
     const d = new Date();
     const year = d.getFullYear();
@@ -170,8 +198,8 @@ function SnapshotForm({ accounts, onSuccess, initialSnapshot }: { accounts: Acco
   const getInitialBalances = () => {
     if (!initialSnapshot) return {};
     const b: Record<string, string> = {};
-    initialSnapshot.entries.forEach(e => {
-        b[e.account_id] = e.balance.toString();
+    initialSnapshot.entries.forEach((e) => {
+      b[e.account_id] = e.balance.toString();
     });
     return b;
   };
@@ -193,7 +221,7 @@ function SnapshotForm({ accounts, onSuccess, initialSnapshot }: { accounts: Acco
     try {
       const url = initialSnapshot ? `/api/snapshots/${initialSnapshot.id}` : "/api/snapshots";
       const method = initialSnapshot ? "PUT" : "POST";
-      
+
       const res = await fetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
@@ -223,18 +251,15 @@ function SnapshotForm({ accounts, onSuccess, initialSnapshot }: { accounts: Acco
 
   // Allow saving if all existing active accounts have balances (when creating).
   // When editing, all rendered inputs must have balances.
-  const displayAccounts = initialSnapshot 
-    ? accounts.filter(acc => balances[acc.id] !== undefined) // or we could merge active and those in the snapshot
-    : accounts;
-    
+
   const renderedAccounts = React.useMemo(() => {
-    const accMap = new Map(accounts.map(a => [a.id, a]));
+    const accMap = new Map(accounts.map((a) => [a.id, a]));
     if (initialSnapshot) {
-        initialSnapshot.entries.forEach(e => {
-            if (!accMap.has(e.account_id)) {
-                // Should fetch or handle deleted accounts, but for now just use what's in state
-            }
-        });
+      initialSnapshot.entries.forEach((e) => {
+        if (!accMap.has(e.account_id)) {
+          // Should fetch or handle deleted accounts, but for now just use what's in state
+        }
+      });
     }
     // We'll just render active accounts for now, but also include accounts that are in the snapshot but inactive
     // Wait, the parent component only fetches `is_active=true` accounts.

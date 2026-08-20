@@ -74,9 +74,13 @@ export const PUT: APIRoute = async ({ request, cookies, params }) => {
 
     if (rpcError) throw new Error(rpcError.message);
 
-    return new Response(JSON.stringify({ success: true }), { status: 200, headers: { "Content-Type": "application/json" } });
-  } catch (err: any) {
-    return new Response(JSON.stringify({ error: err.message || "Invalid Request" }), {
+    return new Response(JSON.stringify({ success: true }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (err: unknown) {
+    const errorMessage = err instanceof Error ? err.message : "Invalid Request";
+    return new Response(JSON.stringify({ error: errorMessage }), {
       status: 400,
       headers: { "Content-Type": "application/json" },
     });
