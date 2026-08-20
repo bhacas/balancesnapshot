@@ -3,7 +3,7 @@ project: BalanceSnapshot
 version: 1
 status: draft
 created: 2026-06-05
-updated: 2026-06-08
+updated: 2026-08-19
 prd_version: 1
 main_goal: speed
 top_blocker: time
@@ -25,12 +25,12 @@ The current landscape of budgeting apps is too high-friction, forcing a daily tr
 
 ## At a glance
 
-| ID | Change ID | Outcome (user can …) | Prerequisites | PRD refs | Status |
-|---|---|---|---|---|---|
-| S-01 | manage-accounts | user can add, edit, and delete accounts, classifying them as assets or liabilities | — | US-01, FR-001, FR-002 | done |
-| S-02 | create-snapshot | user can create and backdate a snapshot by entering current balances for their accounts | S-01 | US-02, FR-003 | proposed |
-| S-04 | net-worth-dashboard | user can see their true Net Worth calculated and charted over time | S-02 | US-04, FR-004, FR-005 | proposed |
-| S-03 | edit-delete-snapshots | user can fix mistakes in past snapshots | S-02 | US-03, FR-003 | proposed |
+| ID   | Change ID             | Outcome (user can …)                                                                    | Prerequisites | PRD refs              | Status   |
+| ---- | --------------------- | --------------------------------------------------------------------------------------- | ------------- | --------------------- | -------- |
+| S-01 | manage-accounts       | user can add, edit, and delete accounts, classifying them as assets or liabilities      | —             | US-01, FR-001, FR-002 | done     |
+| S-02 | create-snapshot       | user can create and backdate a snapshot by entering current balances for their accounts | S-01          | US-02, FR-003         | proposed |
+| S-04 | net-worth-dashboard   | user can see their true Net Worth calculated and charted over time                      | S-02          | US-04, FR-004, FR-005 | proposed |
+| S-03 | edit-delete-snapshots | user can fix mistakes in past snapshots                                                 | S-02          | US-03, FR-003         | proposed |
 
 ## Baseline
 
@@ -72,7 +72,7 @@ Foundations below assume these are present and do NOT re-scaffold them.
 - **Blockers:** —
 - **Unknowns:** —
 - **Risk:** Implementing the business logic to implicitly carry over unchanged balances from previous snapshots is the most complex data operation.
-- **Status:** proposed
+- **Status:** done
 
 ### S-04: View Net Worth dashboard
 
@@ -100,12 +100,12 @@ Foundations below assume these are present and do NOT re-scaffold them.
 
 ## Backlog Handoff
 
-| Roadmap ID | Change ID | Suggested issue title | Ready for `/10x-plan` | Notes |
-|---|---|---|---|---|
-| S-01 | manage-accounts | Build account management (CRUD + asset/liability classification) | yes | Run `/10x-plan manage-accounts` |
-| S-02 | create-snapshot | Build snapshot creation and balance entry | no | Requires S-01 |
-| S-04 | net-worth-dashboard | Build Net Worth calculation and charting dashboard | no | Requires S-02 |
-| S-03 | edit-delete-snapshots | Build snapshot editing and deletion | no | Requires S-02 |
+| Roadmap ID | Change ID             | Suggested issue title                                            | Ready for `/10x-plan` | Notes                           |
+| ---------- | --------------------- | ---------------------------------------------------------------- | --------------------- | ------------------------------- |
+| S-01       | manage-accounts       | Build account management (CRUD + asset/liability classification) | yes                   | Run `/10x-plan manage-accounts` |
+| S-02       | create-snapshot       | Build snapshot creation and balance entry                        | no                    | Requires S-01                   |
+| S-04       | net-worth-dashboard   | Build Net Worth calculation and charting dashboard               | no                    | Requires S-02                   |
+| S-03       | edit-delete-snapshots | Build snapshot editing and deletion                              | no                    | Requires S-02                   |
 
 ## Open Roadmap Questions
 
@@ -122,3 +122,4 @@ Foundations below assume these are present and do NOT re-scaffold them.
 ## Done
 
 - **S-01: user can add, edit, and delete accounts, classifying them as assets or liabilities** — Archived 2026-06-08 → `context/archive/2026-06-08-manage-accounts/`. Lesson: —.
+- **S-02: user can create and backdate a snapshot by entering current balances for their accounts.** — Archived 2026-08-19 → `context/archive/2026-08-19-create-snapshot/`. Lesson: —.

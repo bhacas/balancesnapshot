@@ -22,6 +22,3 @@ jobs:
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
-      - name: Push DB Migrations
-        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-        run: npx supabase db push --db-url ${{ secrets.SUPABASE_DB_URL }}

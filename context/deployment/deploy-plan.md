@@ -19,6 +19,7 @@ Before automated deployment can proceed, the following manual steps must be comp
 
 3. **Secret Configuration**:
    - Add the Supabase secrets to the Cloudflare Worker environment securely using Wrangler:
+
      ```bash
      npx wrangler secret put SUPABASE_URL
      # Paste the Supabase URL when prompted
@@ -51,6 +52,7 @@ Once the manual setup gates are passed, the agent will execute the following:
 ## 3. Verification Steps
 
 After successful deployment, the agent will:
+
 1. Verify the output URL provided by Wrangler to ensure the application resolves correctly.
 2. Monitor real-time logs for any immediate initialization errors:
    ```bash

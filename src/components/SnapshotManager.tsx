@@ -57,7 +57,7 @@ export default function SnapshotManager() {
           </DialogTrigger>
           <DialogContent className="max-w-md">
             <DialogHeader>
-              <DialogTitle>Record Today&apos;s Balances</DialogTitle>
+              <DialogTitle>Record Balances</DialogTitle>
             </DialogHeader>
             <SnapshotForm
               accounts={accounts}
@@ -112,6 +112,15 @@ function SnapshotList({ snapshots }: { snapshots: SnapshotWithEntries[] }) {
 }
 
 function SnapshotForm({ accounts, onSuccess }: { accounts: Account[]; onSuccess: () => void }) {
+  const getTodayStr = () => {
+    const d = new Date();
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  const [date, setDate] = useState(getTodayStr());
   // Store balances as strings to allow empty inputs while typing
   const [balances, setBalances] = useState<Record<string, string | undefined>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -120,7 +129,7 @@ function SnapshotForm({ accounts, onSuccess }: { accounts: Account[]; onSuccess:
     e.preventDefault();
     setIsSubmitting(true);
 
-    const payload = accounts.map((acc) => ({
+    const entries = accounts.map((acc) => ({
       account_id: acc.id,
       balance: parseFloat(balances[acc.id] ?? "0"),
     }));
@@ -129,7 +138,7 @@ function SnapshotForm({ accounts, onSuccess }: { accounts: Account[]; onSuccess:
       const res = await fetch("/api/snapshots", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ date, entries }),
       });
 
       if (!res.ok) {
@@ -188,7 +197,26 @@ function SnapshotForm({ accounts, onSuccess }: { accounts: Account[]; onSuccess:
   };
 
   return (
-    <form onSubmit={(e) => void handleSubmit(e)} className="max-h-[70vh] space-y-6 overflow-y-auto px-1 pt-4">
+    <form
+      onSubmit={(e) => {
+        void handleSubmit(e);
+      }}
+      className="max-h-[70vh] space-y-6 overflow-y-auto px-1 pt-4"
+    >
+      <div>
+        <h3 className="mb-3 font-semibold">Date</h3>
+        <input
+          type="date"
+          value={date}
+          max={getTodayStr()}
+          onChange={(e) => {
+            setDate(e.target.value);
+          }}
+          required
+          className="bg-background w-full rounded-md border p-2 text-sm"
+        />
+      </div>
+
       <div>
         <h3 className="mb-3 font-semibold text-green-600 dark:text-green-400">Assets</h3>
         {renderInputs(assets)}

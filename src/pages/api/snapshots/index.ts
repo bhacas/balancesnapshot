@@ -4,12 +4,15 @@ import { z } from "zod";
 
 export const prerender = false;
 
-const snapshotSchema = z.array(
-  z.object({
-    account_id: z.string(),
-    balance: z.number(),
-  }),
-);
+const snapshotSchema = z.object({
+  date: z.string().optional(),
+  entries: z.array(
+    z.object({
+      account_id: z.string(),
+      balance: z.number(),
+    }),
+  ),
+});
 
 export const GET: APIRoute = async ({ request, cookies }) => {
   const supabase = createClient(request.headers, cookies);
@@ -64,7 +67,14 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       });
     }
 
-    const requestedEntries = parsed.data;
+    const { entries: requestedEntries, date } = parsed.data;
+
+    if (date && new Date(date) > new Date()) {
+      return new Response(JSON.stringify({ error: "Cannot create snapshots for future dates" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
 
     // Fetch active accounts for the user to validate all are present
 
@@ -101,6 +111,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const { data: snapshotId, error: rpcError } = await supabase.rpc("create_snapshot_with_entries", {
       p_entries: requestedEntries,
+      ...(date ? { p_date: date } : {}),
     });
 
     if (rpcError || !snapshotId) {
