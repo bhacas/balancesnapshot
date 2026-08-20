@@ -27,13 +27,15 @@ Implement the ability to edit existing snapshots and delete them. This gives use
 ### Phase 1: API Endpoints
 
 #### Automated
-- [x] 1.1 Create `src/pages/api/snapshots/[id].ts` with `DELETE` method.
-- [x] 1.2 Implement `PUT` method in `src/pages/api/snapshots/[id].ts` to update date and entries.
+- [x] 1.1 Create `src/pages/api/snapshots/[id].ts` with `DELETE` method. — 40ce62b
+- [x] 1.2 Implement `PUT` method in `src/pages/api/snapshots/[id].ts` to update date and entries. — 40ce62b
+
 
 
 ### Phase 2: UI Integration
 
 #### Automated
-- [ ] 2.1 Update `SnapshotManager.tsx` to display Edit and Delete buttons for each snapshot.
-- [ ] 2.2 Implement Delete flow (calling `DELETE` API and updating state).
-- [ ] 2.3 Implement Edit flow (opening modal with existing values, calling `PUT` API, and updating state).
+- [x] 2.1 Update `SnapshotManager.tsx` to display Edit and Delete buttons for each snapshot.
+- [x] 2.2 Implement Delete flow (calling `DELETE` API and updating state).
+- [x] 2.3 Implement Edit flow (opening modal with existing values, calling `PUT` API, and updating state).
+
