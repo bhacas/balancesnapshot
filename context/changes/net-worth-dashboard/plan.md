@@ -63,4 +63,4 @@ We are building a Net Worth Dashboard component (S-04) that aggregates the user'
 
 ### Phase 4: Integration
 
-- [x] Mount `NetWorthDashboard` in `src/pages/dashboard.astro`
+- [x] Mount `NetWorthDashboard` in `src/pages/dashboard.astro` — d551519
