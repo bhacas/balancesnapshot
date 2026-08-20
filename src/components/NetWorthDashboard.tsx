@@ -4,6 +4,8 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 
 type SnapshotWithEntries = Snapshot & { entries: SnapshotEntry[] };
 
+import { toast } from "sonner";
+
 export default function NetWorthDashboard() {
   const [snapshots, setSnapshots] = useState<SnapshotWithEntries[]>([]);
   const [accounts, setAccounts] = useState<Account[]>([]);
@@ -18,8 +20,8 @@ export default function NetWorthDashboard() {
         const accData = (await accRes.json()) as Account[];
         setSnapshots(snapData);
         setAccounts(accData);
-      } catch (err) {
-        console.error("Failed to load dashboard data", err);
+      } catch (_err) {
+        toast.error("Failed to load dashboard data");
       } finally {
         setLoading(false);
       }
@@ -31,7 +33,7 @@ export default function NetWorthDashboard() {
     // Snapshots API returns them ordered by created_at DESC (newest first).
     // We reverse it for chronological order in the chart.
     const sorted = [...snapshots].sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
-    
+
     // Create a map for quick account lookup
     const accountTypeMap = new Map(accounts.map((a) => [a.id, a.type]));
 
@@ -63,7 +65,7 @@ export default function NetWorthDashboard() {
 
   if (chartData.length === 0) {
     return (
-      <div className="p-8 text-center text-muted-foreground">
+      <div className="text-muted-foreground p-8 text-center">
         Record your first snapshot to see your net worth trend.
       </div>
     );
@@ -71,7 +73,7 @@ export default function NetWorthDashboard() {
 
   const currentNetWorth = chartData[chartData.length - 1].netWorth;
   const previousNetWorth = chartData.length > 1 ? chartData[chartData.length - 2].netWorth : null;
-  
+
   let momChange = 0;
   if (previousNetWorth !== null && previousNetWorth !== 0) {
     momChange = ((currentNetWorth - previousNetWorth) / Math.abs(previousNetWorth)) * 100;
@@ -80,14 +82,17 @@ export default function NetWorthDashboard() {
   return (
     <div className="p-6">
       <div className="mb-6 flex flex-col gap-1">
-        <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Total Net Worth</h2>
+        <h2 className="text-muted-foreground text-sm font-medium tracking-wider uppercase">Total Net Worth</h2>
         <div className="flex items-baseline gap-3">
           <span className="text-4xl font-bold">
             ${currentNetWorth.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </span>
           {previousNetWorth !== null && (
-            <span className={`text-sm font-medium ${momChange >= 0 ? "text-green-600 dark:text-green-500" : "text-red-600 dark:text-red-500"}`}>
-              {momChange >= 0 ? "+" : ""}{momChange.toFixed(1)}% MoM
+            <span
+              className={`text-sm font-medium ${momChange >= 0 ? "text-green-600 dark:text-green-500" : "text-red-600 dark:text-red-500"}`}
+            >
+              {momChange >= 0 ? "+" : ""}
+              {momChange.toFixed(1)}% MoM
             </span>
           )}
         </div>
@@ -98,22 +103,27 @@ export default function NetWorthDashboard() {
           <LineChart data={chartData} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e7eb" />
             <XAxis dataKey="date" stroke="#6b7280" fontSize={12} tickLine={false} axisLine={false} />
-            <YAxis 
-              stroke="#6b7280" 
-              fontSize={12} 
-              tickLine={false} 
-              axisLine={false} 
-              tickFormatter={(value) => `$${value.toLocaleString()}`}
+            <YAxis
+              stroke="#6b7280"
+              fontSize={12}
+              tickLine={false}
+              axisLine={false}
+              tickFormatter={(value) => `$${Number(value).toLocaleString()}`}
             />
-            <Tooltip 
+            <Tooltip
               formatter={(value: number) => [`$${value.toLocaleString()}`, "Net Worth"]}
-              contentStyle={{ backgroundColor: "#ffffff", border: "1px solid #e5e7eb", borderRadius: "8px", color: "#000" }}
+              contentStyle={{
+                backgroundColor: "#ffffff",
+                border: "1px solid #e5e7eb",
+                borderRadius: "8px",
+                color: "#000",
+              }}
               itemStyle={{ color: "#000", fontWeight: "bold" }}
             />
-            <Line 
-              type="monotone" 
-              dataKey="netWorth" 
-              stroke="#8b5cf6" 
+            <Line
+              type="monotone"
+              dataKey="netWorth"
+              stroke="#8b5cf6"
               strokeWidth={3}
               dot={{ r: 4, fill: "#8b5cf6", strokeWidth: 0 }}
               activeDot={{ r: 6, fill: "#8b5cf6", stroke: "#fff", strokeWidth: 2 }}

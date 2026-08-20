@@ -47,16 +47,20 @@ We are building a Net Worth Dashboard component (S-04) that aggregates the user'
 ## Progress
 
 ### Phase 1: Setup Dependencies
+
 - [x] Install `recharts` dependency — c934ed5
 
 ### Phase 2: Data Aggregation & Calculation
+
 - [x] Create `src/components/NetWorthDashboard.tsx`
 - [x] Implement data fetching for `/api/accounts` and `/api/snapshots`
 - [x] Implement net worth and MoM calculations
 
 ### Phase 3: Visualization & UI
-- [ ] Render the Total Net Worth and MoM percentage
-- [ ] Implement the `recharts` Line chart
+
+- [x] Render the Total Net Worth and MoM percentage
+- [x] Implement the `recharts` Line chart
 
 ### Phase 4: Integration
+
 - [ ] Mount `NetWorthDashboard` in `src/pages/dashboard.astro`
