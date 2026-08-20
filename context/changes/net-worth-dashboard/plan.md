@@ -58,9 +58,9 @@ We are building a Net Worth Dashboard component (S-04) that aggregates the user'
 
 ### Phase 3: Visualization & UI
 
-- [x] Render the Total Net Worth and MoM percentage
-- [x] Implement the `recharts` Line chart
+- [x] Render the Total Net Worth and MoM percentage — 004a4fa
+- [x] Implement the `recharts` Line chart — 004a4fa
 
 ### Phase 4: Integration
 
-- [ ] Mount `NetWorthDashboard` in `src/pages/dashboard.astro`
+- [x] Mount `NetWorthDashboard` in `src/pages/dashboard.astro`
