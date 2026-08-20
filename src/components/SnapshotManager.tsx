@@ -8,34 +8,26 @@ import { Plus, Calendar, Pencil, Trash2 } from "lucide-react";
 
 type SnapshotWithEntries = Snapshot & { entries: SnapshotEntry[] };
 
+import { useStore } from "@nanostores/react";
+import { accountsStore, snapshotsStore, storeLoading, fetchDashboardData } from "@/lib/store";
+
 export default function SnapshotManager() {
-  const [snapshots, setSnapshots] = useState<SnapshotWithEntries[]>([]);
-  const [accounts, setAccounts] = useState<Account[]>([]);
-  const [loading, setLoading] = useState(true);
+  const allAccounts = useStore(accountsStore);
+  const snapshots = useStore(snapshotsStore);
+  const loading = useStore(storeLoading);
+  const accounts = allAccounts.filter((a) => a.is_active);
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [editingSnapshot, setEditingSnapshot] = useState<SnapshotWithEntries | undefined>(undefined);
 
-  const fetchData = async () => {
+  const fetchData = async (force = false) => {
     try {
-      const [snapRes, accRes] = await Promise.all([fetch("/api/snapshots"), fetch("/api/accounts")]);
-
-      if (!snapRes.ok) throw new Error("Failed to fetch snapshots");
-      if (!accRes.ok) throw new Error("Failed to fetch accounts");
-
-      const snapData = (await snapRes.json()) as SnapshotWithEntries[];
-      const accData = (await accRes.json()) as Account[];
-
-      setSnapshots(snapData);
-      setAccounts(accData);
+      await fetchDashboardData(force);
     } catch (_err) {
       toast.error("Could not load snapshot data");
-    } finally {
-      setLoading(false);
     }
   };
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     void fetchData();
   }, []);
 
@@ -83,7 +75,7 @@ export default function SnapshotManager() {
               onSuccess={() => {
                 setIsAddOpen(false);
                 setEditingSnapshot(undefined);
-                void fetchData();
+                void fetchData(true);
               }}
             />
           </DialogContent>

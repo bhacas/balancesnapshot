@@ -1,7 +1,7 @@
 ---
 change_id: net-worth-dashboard
 title: Net worth dashboard
-status: implemented
+status: impl_reviewed
 created: 2026-08-20
 updated: 2026-08-20
 archived_at: null

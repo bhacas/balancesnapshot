@@ -1,32 +1,19 @@
-import React, { useState, useEffect, useMemo } from "react";
-import type { Account, Snapshot, SnapshotEntry } from "@/types";
+import React, { useMemo, useEffect } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
-type SnapshotWithEntries = Snapshot & { entries: SnapshotEntry[] };
+import { cn } from "@/lib/utils";
 
-import { toast } from "sonner";
+import { useStore } from "@nanostores/react";
+import { snapshotsStore, accountsStore, storeLoading, storeError, fetchDashboardData } from "@/lib/store";
 
 export default function NetWorthDashboard() {
-  const [snapshots, setSnapshots] = useState<SnapshotWithEntries[]>([]);
-  const [accounts, setAccounts] = useState<Account[]>([]);
-  const [loading, setLoading] = useState(true);
+  const snapshots = useStore(snapshotsStore);
+  const accounts = useStore(accountsStore);
+  const loading = useStore(storeLoading);
+  const error = useStore(storeError);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [snapRes, accRes] = await Promise.all([fetch("/api/snapshots"), fetch("/api/accounts")]);
-        if (!snapRes.ok || !accRes.ok) throw new Error("Failed to fetch data");
-        const snapData = (await snapRes.json()) as SnapshotWithEntries[];
-        const accData = (await accRes.json()) as Account[];
-        setSnapshots(snapData);
-        setAccounts(accData);
-      } catch (_err) {
-        toast.error("Failed to load dashboard data");
-      } finally {
-        setLoading(false);
-      }
-    };
-    void fetchData();
+    void fetchDashboardData();
   }, []);
 
   const chartData = useMemo(() => {
@@ -59,8 +46,12 @@ export default function NetWorthDashboard() {
     });
   }, [snapshots, accounts]);
 
+  if (error) {
+    return <div className="text-destructive p-8 text-center">Failed to load dashboard data.</div>;
+  }
+
   if (loading) {
-    return <div className="p-8 text-center text-black">Loading Dashboard...</div>;
+    return <div className="text-muted-foreground p-8 text-center">Loading Dashboard...</div>;
   }
 
   if (chartData.length === 0) {
@@ -89,10 +80,16 @@ export default function NetWorthDashboard() {
           </span>
           {previousNetWorth !== null && (
             <span
-              className={`text-sm font-medium ${momChange >= 0 ? "text-green-600 dark:text-green-500" : "text-red-600 dark:text-red-500"}`}
+              className={cn(
+                "text-sm font-medium",
+                previousNetWorth === 0
+                  ? "text-muted-foreground"
+                  : momChange >= 0
+                    ? "text-green-600 dark:text-green-500"
+                    : "text-red-600 dark:text-red-500",
+              )}
             >
-              {momChange >= 0 ? "+" : ""}
-              {momChange.toFixed(1)}% MoM
+              {previousNetWorth === 0 ? "N/A" : `${momChange >= 0 ? "+" : ""}${momChange.toFixed(1)}% MoM`}
             </span>
           )}
         </div>
@@ -101,10 +98,16 @@ export default function NetWorthDashboard() {
       <div className="h-[300px] w-full">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={chartData} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e7eb" />
-            <XAxis dataKey="date" stroke="#6b7280" fontSize={12} tickLine={false} axisLine={false} />
+            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--muted))" />
+            <XAxis
+              dataKey="date"
+              stroke="hsl(var(--muted-foreground))"
+              fontSize={12}
+              tickLine={false}
+              axisLine={false}
+            />
             <YAxis
-              stroke="#6b7280"
+              stroke="hsl(var(--muted-foreground))"
               fontSize={12}
               tickLine={false}
               axisLine={false}
@@ -113,12 +116,12 @@ export default function NetWorthDashboard() {
             <Tooltip
               formatter={(value: number) => [`$${value.toLocaleString()}`, "Net Worth"]}
               contentStyle={{
-                backgroundColor: "#ffffff",
-                border: "1px solid #e5e7eb",
+                backgroundColor: "hsl(var(--popover))",
+                border: "1px solid hsl(var(--border))",
                 borderRadius: "8px",
-                color: "#000",
+                color: "hsl(var(--popover-foreground))",
               }}
-              itemStyle={{ color: "#000", fontWeight: "bold" }}
+              itemStyle={{ color: "hsl(var(--popover-foreground))", fontWeight: "bold" }}
             />
             <Line
               type="monotone"
@@ -126,7 +129,7 @@ export default function NetWorthDashboard() {
               stroke="#8b5cf6"
               strokeWidth={3}
               dot={{ r: 4, fill: "#8b5cf6", strokeWidth: 0 }}
-              activeDot={{ r: 6, fill: "#8b5cf6", stroke: "#fff", strokeWidth: 2 }}
+              activeDot={{ r: 6, fill: "#8b5cf6", stroke: "hsl(var(--background))", strokeWidth: 2 }}
             />
           </LineChart>
         </ResponsiveContainer>
