@@ -26,9 +26,9 @@ The current landscape of budgeting apps is too high-friction, forcing a daily tr
 ## At a glance
 
 | ID   | Change ID             | Outcome (user can …)                                                                    | Prerequisites | PRD refs              | Status   |
-| ---- | --------------------- | --------------------------------------------------------------------------------------- | ------------- | --------------------- | -------- |
+| ---- | --------------------- | --------------------------------------------------------------------------------------- | ------------- | --------------------- |----------|
 | S-01 | manage-accounts       | user can add, edit, and delete accounts, classifying them as assets or liabilities      | —             | US-01, FR-001, FR-002 | done     |
-| S-02 | create-snapshot       | user can create and backdate a snapshot by entering current balances for their accounts | S-01          | US-02, FR-003         | proposed |
+| S-02 | create-snapshot       | user can create and backdate a snapshot by entering current balances for their accounts | S-01          | US-02, FR-003         | done     |
 | S-04 | net-worth-dashboard   | user can see their true Net Worth calculated and charted over time                      | S-02          | US-04, FR-004, FR-005 | proposed |
 | S-03 | edit-delete-snapshots | user can fix mistakes in past snapshots                                                 | S-02          | US-03, FR-003         | proposed |
 
