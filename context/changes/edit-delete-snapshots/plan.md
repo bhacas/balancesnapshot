@@ -35,7 +35,8 @@ Implement the ability to edit existing snapshots and delete them. This gives use
 ### Phase 2: UI Integration
 
 #### Automated
-- [x] 2.1 Update `SnapshotManager.tsx` to display Edit and Delete buttons for each snapshot.
-- [x] 2.2 Implement Delete flow (calling `DELETE` API and updating state).
-- [x] 2.3 Implement Edit flow (opening modal with existing values, calling `PUT` API, and updating state).
+- [x] 2.1 Update `SnapshotManager.tsx` to display Edit and Delete buttons for each snapshot. — 04bf2ef
+- [x] 2.2 Implement Delete flow (calling `DELETE` API and updating state). — 04bf2ef
+- [x] 2.3 Implement Edit flow (opening modal with existing values, calling `PUT` API, and updating state). — 04bf2ef
+
 
