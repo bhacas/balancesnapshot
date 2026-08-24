@@ -6,27 +6,25 @@ import { toast } from "sonner";
 import type { Account } from "@/types";
 import { Pencil, Trash2, Plus } from "lucide-react";
 
+import { useStore } from "@nanostores/react";
+import { accountsStore, storeLoading, fetchDashboardData } from "@/lib/store";
+
 export default function AccountsManager() {
-  const [accounts, setAccounts] = useState<Account[]>([]);
-  const [loading, setLoading] = useState(true);
+  const allAccounts = useStore(accountsStore);
+  const loading = useStore(storeLoading);
+  const accounts = allAccounts.filter((a) => a.is_active);
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [editAccount, setEditAccount] = useState<Account | null>(null);
 
-  const fetchAccounts = async () => {
+  const fetchAccounts = async (force = false) => {
     try {
-      const res = await fetch("/api/accounts");
-      if (!res.ok) throw new Error("Failed to fetch accounts");
-      const data = (await res.json()) as Account[];
-      setAccounts(data);
+      await fetchDashboardData(force);
     } catch (_err) {
       toast.error("Could not load accounts");
-    } finally {
-      setLoading(false);
     }
   };
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     void fetchAccounts();
   }, []);
 
@@ -36,7 +34,7 @@ export default function AccountsManager() {
       const res = await fetch(`/api/accounts/${id}`, { method: "DELETE" });
       if (!res.ok) throw new Error("Failed to delete");
       toast.success("Account deleted");
-      void fetchAccounts();
+      void fetchAccounts(true);
     } catch (_err) {
       toast.error("Failed to delete account");
     }
@@ -63,7 +61,7 @@ export default function AccountsManager() {
             <AccountForm
               onSuccess={() => {
                 setIsAddOpen(false);
-                void fetchAccounts();
+                void fetchAccounts(true);
               }}
             />
           </DialogContent>
@@ -100,7 +98,7 @@ export default function AccountsManager() {
               initialData={editAccount}
               onSuccess={() => {
                 setEditAccount(null);
-                void fetchAccounts();
+                void fetchAccounts(true);
               }}
             />
           )}

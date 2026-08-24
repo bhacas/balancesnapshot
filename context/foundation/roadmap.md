@@ -25,12 +25,12 @@ The current landscape of budgeting apps is too high-friction, forcing a daily tr
 
 ## At a glance
 
-| ID   | Change ID             | Outcome (user can …)                                                                    | Prerequisites | PRD refs              | Status   |
-| ---- | --------------------- | --------------------------------------------------------------------------------------- | ------------- | --------------------- | -------- |
-| S-01 | manage-accounts       | user can add, edit, and delete accounts, classifying them as assets or liabilities      | —             | US-01, FR-001, FR-002 | done     |
-| S-02 | create-snapshot       | user can create and backdate a snapshot by entering current balances for their accounts | S-01          | US-02, FR-003         | done     |
-| S-04 | net-worth-dashboard   | user can see their true Net Worth calculated and charted over time                      | S-02          | US-04, FR-004, FR-005 | proposed |
-| S-03 | edit-delete-snapshots | user can fix mistakes in past snapshots                                                 | S-02          | US-03, FR-003         | done     |
+| ID   | Change ID             | Outcome (user can …)                                                                    | Prerequisites | PRD refs              | Status |
+| ---- | --------------------- | --------------------------------------------------------------------------------------- | ------------- | --------------------- |--------|
+| S-01 | manage-accounts       | user can add, edit, and delete accounts, classifying them as assets or liabilities      | —             | US-01, FR-001, FR-002 | done   |
+| S-02 | create-snapshot       | user can create and backdate a snapshot by entering current balances for their accounts | S-01          | US-02, FR-003         | done   |
+| S-04 | net-worth-dashboard   | user can see their true Net Worth calculated and charted over time                      | S-02          | US-04, FR-004, FR-005 | done   |
+| S-03 | edit-delete-snapshots | user can fix mistakes in past snapshots                                                 | S-02          | US-03, FR-003         | done   |
 
 ## Baseline
 
@@ -84,7 +84,7 @@ Foundations below assume these are present and do NOT re-scaffold them.
 - **Blockers:** —
 - **Unknowns:** —
 - **Risk:** Integrating a charting library might slow down the 1-week timeline; we may need to fallback to a simple table if visualization becomes a time-sink.
-- **Status:** proposed
+- **Status:** done
 
 ### S-03: Edit or delete existing snapshots
 
@@ -124,3 +124,4 @@ Foundations below assume these are present and do NOT re-scaffold them.
 - **S-01: user can add, edit, and delete accounts, classifying them as assets or liabilities** — Archived 2026-06-08 → `context/archive/2026-06-08-manage-accounts/`. Lesson: —.
 - **S-02: user can create and backdate a snapshot by entering current balances for their accounts.** — Archived 2026-08-19 → `context/archive/2026-08-19-create-snapshot/`. Lesson: —.
 - **S-03: user can fix mistakes in past snapshots.** — Archived 2026-08-20 → `context/archive/2026-08-20-edit-delete-snapshots/`. Lesson: —.
+- **S-04: user can see their true Net Worth calculated and charted over time** — Archived 2026-08-20 → `context/archive/2026-08-20-net-worth-dashboard/`. Lesson: —.

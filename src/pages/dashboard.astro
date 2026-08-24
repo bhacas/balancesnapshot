@@ -3,6 +3,8 @@ import Layout from "@/layouts/Layout.astro";
 import AccountsManager from "@/components/AccountsManager";
 import SnapshotManager from "@/components/SnapshotManager";
 
+import NetWorthDashboard from "@/components/NetWorthDashboard";
+
 const { user } = Astro.locals;
 ---
 
@@ -29,6 +31,10 @@ const { user } = Astro.locals;
       </div>
 
       <div class="space-y-8">
+        <div class="overflow-hidden rounded-2xl bg-white text-black shadow-xl">
+          <NetWorthDashboard client:load />
+        </div>
+
         <div class="overflow-hidden rounded-2xl bg-white text-black shadow-xl">
           <AccountsManager client:load />
         </div>

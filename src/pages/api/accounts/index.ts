@@ -19,11 +19,14 @@ export const GET: APIRoute = async ({ request, cookies }) => {
   } = await supabase.auth.getUser();
   if (authError || !user) return new Response("Unauthorized", { status: 401 });
 
-  const { data, error } = await supabase
-    .from("accounts")
-    .select("*")
-    .eq("is_active", true)
-    .order("created_at", { ascending: false });
+  const includeInactive = new URL(request.url).searchParams.has("include_inactive");
+
+  let query = supabase.from("accounts").select("*");
+  if (!includeInactive) {
+    query = query.eq("is_active", true);
+  }
+
+  const { data, error } = await query.order("created_at", { ascending: false });
 
   if (error) {
     return new Response(JSON.stringify({ error: error.message }), {
