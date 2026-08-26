@@ -44,14 +44,14 @@ Bootstrap Vitest as the testing framework and implement the missing "implicit ca
 
 ## Progress
 
-- [x] Phase 1: Bootstrap Vitest Setup
-  - [x] Install `vitest` as a dev dependency.
-  - [x] Add `"test": "vitest run"` and `"test:watch": "vitest"` scripts to `package.json`.
-  - [x] Create `vitest.config.ts` configuring a standard Node environment with TypeScript support.
-- [ ] Phase 2: Implement Carry-Over Pure Logic
-  - [ ] Create `src/lib/snapshot-logic.ts`.
-  - [ ] Implement and export `calculateInitialBalances(accounts: Account[], latestSnapshot?: SnapshotWithEntries): Record<string, string>`.
-  - [ ] Ensure new accounts default to `"0"`.
+- [x] Phase 1: Bootstrap Vitest Setup — 2527e2a
+  - [x] Install `vitest` as a dev dependency. — 2527e2a
+  - [x] Add `"test": "vitest run"` and `"test:watch": "vitest"` scripts to `package.json`. — 2527e2a
+  - [x] Create `vitest.config.ts` configuring a standard Node environment with TypeScript support. — 2527e2a
+- [x] Phase 2: Implement Carry-Over Pure Logic
+  - [x] Create `src/lib/snapshot-logic.ts`.
+  - [x] Implement and export `calculateInitialBalances(accounts: Account[], latestSnapshot?: SnapshotWithEntries): Record<string, string>`.
+  - [x] Ensure new accounts default to `"0"`.
 - [ ] Phase 3: Write Unit Tests
   - [ ] Create `src/lib/snapshot-logic.test.ts`.
   - [ ] Test case: Returns empty (or 0s) if there is no previous snapshot.
