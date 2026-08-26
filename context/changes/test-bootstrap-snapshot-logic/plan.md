@@ -60,5 +60,5 @@ Bootstrap Vitest as the testing framework and implement the missing "implicit ca
 - [x] Phase 4: Wire Logic to UI — 60f057a
   - [x] In `SnapshotManager.tsx`, import `calculateInitialBalances`. — 60f057a
   - [x] Modify `getInitialBalances` to pass the active accounts and either the `initialSnapshot` (if editing) or `snapshots[0]` (if creating new). — 60f057a
-- [x] Phase 5: Update Cookbook
-  - [x] Update `context/foundation/test-plan.md` section 6 to include the Vitest pure-logic testing pattern.
+- [x] Phase 5: Update Cookbook — 7a2f364
+  - [x] Update `context/foundation/test-plan.md` section 6 to include the Vitest pure-logic testing pattern. — 7a2f364
