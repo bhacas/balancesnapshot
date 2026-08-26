@@ -52,13 +52,13 @@ Bootstrap Vitest as the testing framework and implement the missing "implicit ca
   - [x] Create `src/lib/snapshot-logic.ts`. — 3e9b52b
   - [x] Implement and export `calculateInitialBalances(accounts: Account[], latestSnapshot?: SnapshotWithEntries): Record<string, string>`. — 3e9b52b
   - [x] Ensure new accounts default to `"0"`. — 3e9b52b
-- [x] Phase 3: Write Unit Tests
-  - [x] Create `src/lib/snapshot-logic.test.ts`.
-  - [x] Test case: Returns empty (or 0s) if there is no previous snapshot.
-  - [x] Test case: Carries over balances correctly from the provided latest snapshot.
-  - [x] Test case: Defaults newly added accounts to `0` while carrying over older ones.
-- [ ] Phase 4: Wire Logic to UI
-  - [ ] In `SnapshotManager.tsx`, import `calculateInitialBalances`.
-  - [ ] Modify `getInitialBalances` to pass the active accounts and either the `initialSnapshot` (if editing) or `snapshots[0]` (if creating new).
+- [x] Phase 3: Write Unit Tests — 72251c8
+  - [x] Create `src/lib/snapshot-logic.test.ts`. — 72251c8
+  - [x] Test case: Returns empty (or 0s) if there is no previous snapshot. — 72251c8
+  - [x] Test case: Carries over balances correctly from the provided latest snapshot. — 72251c8
+  - [x] Test case: Defaults newly added accounts to `0` while carrying over older ones. — 72251c8
+- [x] Phase 4: Wire Logic to UI
+  - [x] In `SnapshotManager.tsx`, import `calculateInitialBalances`.
+  - [x] Modify `getInitialBalances` to pass the active accounts and either the `initialSnapshot` (if editing) or `snapshots[0]` (if creating new).
 - [ ] Phase 5: Update Cookbook
   - [ ] Update `context/foundation/test-plan.md` section 6 to include the Vitest pure-logic testing pattern.
