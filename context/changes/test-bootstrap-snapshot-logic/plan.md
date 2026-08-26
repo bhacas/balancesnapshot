@@ -57,8 +57,8 @@ Bootstrap Vitest as the testing framework and implement the missing "implicit ca
   - [x] Test case: Returns empty (or 0s) if there is no previous snapshot. — 72251c8
   - [x] Test case: Carries over balances correctly from the provided latest snapshot. — 72251c8
   - [x] Test case: Defaults newly added accounts to `0` while carrying over older ones. — 72251c8
-- [x] Phase 4: Wire Logic to UI
-  - [x] In `SnapshotManager.tsx`, import `calculateInitialBalances`.
-  - [x] Modify `getInitialBalances` to pass the active accounts and either the `initialSnapshot` (if editing) or `snapshots[0]` (if creating new).
-- [ ] Phase 5: Update Cookbook
-  - [ ] Update `context/foundation/test-plan.md` section 6 to include the Vitest pure-logic testing pattern.
+- [x] Phase 4: Wire Logic to UI — 60f057a
+  - [x] In `SnapshotManager.tsx`, import `calculateInitialBalances`. — 60f057a
+  - [x] Modify `getInitialBalances` to pass the active accounts and either the `initialSnapshot` (if editing) or `snapshots[0]` (if creating new). — 60f057a
+- [x] Phase 5: Update Cookbook
+  - [x] Update `context/foundation/test-plan.md` section 6 to include the Vitest pure-logic testing pattern.
