@@ -48,15 +48,15 @@ Bootstrap Vitest as the testing framework and implement the missing "implicit ca
   - [x] Install `vitest` as a dev dependency. — 2527e2a
   - [x] Add `"test": "vitest run"` and `"test:watch": "vitest"` scripts to `package.json`. — 2527e2a
   - [x] Create `vitest.config.ts` configuring a standard Node environment with TypeScript support. — 2527e2a
-- [x] Phase 2: Implement Carry-Over Pure Logic
-  - [x] Create `src/lib/snapshot-logic.ts`.
-  - [x] Implement and export `calculateInitialBalances(accounts: Account[], latestSnapshot?: SnapshotWithEntries): Record<string, string>`.
-  - [x] Ensure new accounts default to `"0"`.
-- [ ] Phase 3: Write Unit Tests
-  - [ ] Create `src/lib/snapshot-logic.test.ts`.
-  - [ ] Test case: Returns empty (or 0s) if there is no previous snapshot.
-  - [ ] Test case: Carries over balances correctly from the provided latest snapshot.
-  - [ ] Test case: Defaults newly added accounts to `0` while carrying over older ones.
+- [x] Phase 2: Implement Carry-Over Pure Logic — 3e9b52b
+  - [x] Create `src/lib/snapshot-logic.ts`. — 3e9b52b
+  - [x] Implement and export `calculateInitialBalances(accounts: Account[], latestSnapshot?: SnapshotWithEntries): Record<string, string>`. — 3e9b52b
+  - [x] Ensure new accounts default to `"0"`. — 3e9b52b
+- [x] Phase 3: Write Unit Tests
+  - [x] Create `src/lib/snapshot-logic.test.ts`.
+  - [x] Test case: Returns empty (or 0s) if there is no previous snapshot.
+  - [x] Test case: Carries over balances correctly from the provided latest snapshot.
+  - [x] Test case: Defaults newly added accounts to `0` while carrying over older ones.
 - [ ] Phase 4: Wire Logic to UI
   - [ ] In `SnapshotManager.tsx`, import `calculateInitialBalances`.
   - [ ] Modify `getInitialBalances` to pass the active accounts and either the `initialSnapshot` (if editing) or `snapshots[0]` (if creating new).
