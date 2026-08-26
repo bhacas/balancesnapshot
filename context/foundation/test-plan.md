@@ -20,7 +20,7 @@
 
 | Phase | Change ID | Goal | Risks Covered | Layer | Status |
 |---|---|---|---|---|---|
-| 1 | `test-bootstrap-snapshot-logic` | Bootstrap test runner and cover core snapshot carry-over/edit logic | R-01, R-03 | Unit / Integration | not started |
+| 1 | `test-bootstrap-snapshot-logic` | Bootstrap test runner and cover core snapshot carry-over/edit logic | R-01, R-03 | Unit / Integration | complete |
 | 2 | `test-dashboard-integration` | Cover Net Worth dashboard data calculations and component stability | R-02 | Component / Integration | not started |
 | 3 | `test-accounts-api` | Cover account management and backend SSR API routes | R-04, R-05 | Integration | not started |
 
