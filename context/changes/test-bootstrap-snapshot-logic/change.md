@@ -1,7 +1,7 @@
 ---
 change_id: test-bootstrap-snapshot-logic
 title: Test bootstrap snapshot logic
-status: implemented
+status: impl_reviewed
 created: 2026-08-26
 updated: 2026-08-26
 archived_at: null
