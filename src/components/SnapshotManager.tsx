@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
 import type { Account, Snapshot, SnapshotEntry } from "@/types";
 import { Plus, Calendar, Pencil, Trash2 } from "lucide-react";
+import { calculateInitialBalances } from "@/lib/snapshot-logic";
 
 type SnapshotWithEntries = Snapshot & { entries: SnapshotEntry[] };
 
@@ -165,10 +166,12 @@ function SnapshotForm({
   accounts,
   onSuccess,
   initialSnapshot,
+  latestSnapshot,
 }: {
   accounts: Account[];
   onSuccess: () => void;
   initialSnapshot?: SnapshotWithEntries;
+  latestSnapshot?: SnapshotWithEntries;
 }) {
   const getTodayStr = () => {
     const d = new Date();
@@ -188,12 +191,10 @@ function SnapshotForm({
   };
 
   const getInitialBalances = () => {
-    if (!initialSnapshot) return {};
-    const b: Record<string, string> = {};
-    initialSnapshot.entries.forEach((e) => {
-      b[e.account_id] = e.balance.toString();
-    });
-    return b;
+    if (initialSnapshot) {
+      return calculateInitialBalances(accounts, initialSnapshot);
+    }
+    return calculateInitialBalances(accounts, latestSnapshot);
   };
 
   const [date, setDate] = useState(getInitialDateStr());
