@@ -1,0 +1,124 @@
+---
+import Topbar from "@/components/Topbar.astro";
+---
+
+<div class="relative min-h-screen w-full overflow-hidden bg-white text-slate-900">
+  <!-- Subtle pastel orbs for light theme -->
+  <div
+    class="pointer-events-none absolute top-1/4 -left-24 h-[350px] w-[350px] rounded-full bg-blue-500/10 blur-[120px]"
+  >
+  </div>
+  <div
+    class="pointer-events-none absolute top-2/3 -right-16 h-[250px] w-[250px] rounded-full bg-emerald-500/10 blur-[100px]"
+  >
+  </div>
+  <div
+    class="pointer-events-none absolute top-0 left-1/2 h-[300px] w-[300px] -translate-x-1/2 rounded-full bg-indigo-400/5 blur-[140px]"
+  >
+  </div>
+
+  <!-- Dot pattern for light background -->
+  <div
+    class="pointer-events-none absolute inset-0"
+    style="background-image: radial-gradient(circle, rgba(0,0,0,0.04) 1px, transparent 1px), radial-gradient(circle, rgba(0,0,0,0.03) 1px, transparent 1px), radial-gradient(circle, rgba(0,0,0,0.02) 1px, transparent 1px); background-size: 200px 200px, 150px 150px, 100px 100px; background-position: 0 0, 40px 60px, 80px 30px;"
+  >
+  </div>
+
+  <div class="relative z-10 p-4 sm:p-8">
+    <Topbar />
+
+    <!-- Hero section -->
+    <div class="mx-auto flex max-w-4xl flex-col items-center justify-center px-4 py-24 text-center sm:py-32 lg:py-40">
+      <h1
+        class="mb-6 bg-gradient-to-r from-emerald-600 via-blue-600 to-indigo-600 bg-clip-text text-5xl leading-tight font-bold text-transparent sm:text-6xl lg:text-7xl"
+      >
+        Balance Snapshot
+      </h1>
+      <p class="mb-10 max-w-2xl text-lg text-slate-600 sm:text-xl">
+        Take back control of your finances. Track your assets, liabilities, and net worth in one simple view.
+      </p>
+      <div class="flex flex-col gap-4 sm:flex-row">
+        <a
+          href="/auth/signup"
+          class="inline-flex items-center justify-center rounded-lg bg-emerald-600 px-6 py-3 text-base font-medium text-white transition-colors hover:bg-emerald-700"
+        >
+          Get Started
+        </a>
+        <a
+          href="/auth/signin"
+          class="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white px-6 py-3 text-base font-medium text-slate-700 shadow-sm transition-colors hover:bg-slate-50"
+        >
+          Sign In
+        </a>
+      </div>
+    </div>
+
+    <!-- Feature cards -->
+    <div class="mx-auto grid max-w-4xl grid-cols-1 gap-6 px-4 pb-24 sm:grid-cols-3">
+      <div class="rounded-xl border border-slate-200 bg-white/60 p-6 shadow-sm backdrop-blur-xl">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="mb-4 text-emerald-600"
+        >
+          <path d="M12 2v20"></path>
+          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+        </svg>
+        <h3 class="mb-2 text-lg font-semibold text-slate-900">Track Net Worth</h3>
+        <p class="text-sm leading-relaxed text-slate-600">
+          Calculate and analyze your total net worth based on your current assets and liabilities.
+        </p>
+      </div>
+
+      <div class="rounded-xl border border-slate-200 bg-white/60 p-6 shadow-sm backdrop-blur-xl">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="mb-4 text-emerald-600"
+        >
+          <path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
+          <path d="M22 12A10 10 0 0 0 12 2v10z"></path>
+        </svg>
+        <h3 class="mb-2 text-lg font-semibold text-slate-900">Clear Insights</h3>
+        <p class="text-sm leading-relaxed text-slate-600">
+          Visualize the distribution of your finances to better understand where your capital is allocated.
+        </p>
+      </div>
+
+      <div class="rounded-xl border border-slate-200 bg-white/60 p-6 shadow-sm backdrop-blur-xl">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="mb-4 text-emerald-600"
+        >
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path>
+        </svg>
+        <h3 class="mb-2 text-lg font-semibold text-slate-900">Security</h3>
+        <p class="text-sm leading-relaxed text-slate-600">
+          Your financial data is secure with us thanks to modern authentication solutions.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
