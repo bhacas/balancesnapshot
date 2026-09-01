@@ -131,6 +131,7 @@ function AccountList({
             <Button
               variant="outline"
               size="icon"
+              aria-label={`Edit ${account.name}`}
               onClick={() => {
                 onEdit(account);
               }}
@@ -140,6 +141,7 @@ function AccountList({
             <Button
               variant="destructive"
               size="icon"
+              aria-label={`Delete ${account.name}`}
               onClick={() => {
                 onDelete(account.id);
               }}
@@ -195,8 +197,11 @@ function AccountForm({ onSuccess, initialData }: { onSuccess: () => void; initia
   return (
     <form onSubmit={(e) => void handleSubmit(e)} className="space-y-4 pt-4">
       <div>
-        <label className="mb-1 block text-sm font-medium">Account Name</label>
+        <label htmlFor="account-name" className="mb-1 block text-sm font-medium">
+          Account Name
+        </label>
         <input
+          id="account-name"
           type="text"
           value={name}
           onChange={(e) => {
@@ -208,8 +213,11 @@ function AccountForm({ onSuccess, initialData }: { onSuccess: () => void; initia
         />
       </div>
       <div>
-        <label className="mb-1 block text-sm font-medium">Account Type</label>
+        <label htmlFor="account-type" className="mb-1 block text-sm font-medium">
+          Account Type
+        </label>
         <select
+          id="account-type"
           value={type}
           onChange={(e) => {
             setType(e.target.value as "asset" | "liability");
