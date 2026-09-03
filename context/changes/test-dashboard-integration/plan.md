@@ -60,5 +60,5 @@ Add tests to the Vitest suite for the newly extracted logic.
 
 ## Progress
 
-- [x] Phase 1: Refactor Logic
-- [ ] Phase 2: Write Unit Tests
+- [x] Phase 1: Refactor Logic — 18d1d01
+- [x] Phase 2: Write Unit Tests
