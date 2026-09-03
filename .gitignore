@@ -31,3 +31,7 @@ pnpm-debug.log*
 /.agents/
 /.gemini/
 /playwright/.auth/
+test-results/
+playwright-report/
+playwright/.cache/
+.playwright-cli/
