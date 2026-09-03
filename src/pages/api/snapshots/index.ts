@@ -5,7 +5,10 @@ import { z } from "zod";
 export const prerender = false;
 
 const snapshotSchema = z.object({
-  date: z.string().optional(),
+  date: z
+    .string()
+    .refine((val) => !isNaN(Date.parse(val)), { message: "Invalid date" })
+    .optional(),
   entries: z.array(
     z.object({
       account_id: z.string(),
@@ -37,7 +40,8 @@ export const GET: APIRoute = async ({ request, cookies }) => {
     .order("created_at", { ascending: false });
 
   if (error) {
-    return new Response(JSON.stringify({ error: error.message }), {
+    console.error("[Snapshots GET Error]", error);
+    return new Response(JSON.stringify({ error: "Internal Server Error" }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
     });
@@ -115,7 +119,8 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     });
 
     if (rpcError || !snapshotId) {
-      return new Response(JSON.stringify({ error: rpcError?.message ?? "Failed to create snapshot atomically" }), {
+      console.error("[Snapshots POST Error]", rpcError);
+      return new Response(JSON.stringify({ error: "Internal Server Error" }), {
         status: 500,
         headers: { "Content-Type": "application/json" },
       });

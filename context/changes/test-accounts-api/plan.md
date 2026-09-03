@@ -47,18 +47,22 @@ Implement true HTTP integration tests for the Account management and Snapshot AP
 ## Progress
 
 ### Phase 1: Playwright Setup & Auth Fixtures
-- [x] Configure `playwright.config.ts` for API testing with a `webServer` block pointing to `npm run dev`.
-- [x] Create an API request helper utility to fetch authenticated JWT tokens for multiple test users.
+
+- [x] Configure `playwright.config.ts` for API testing with a `webServer` block pointing to `npm run dev`. — 196d4b6
+- [x] Create an API request helper utility to fetch authenticated JWT tokens for multiple test users. — 196d4b6
 
 ### Phase 2: Fix API Vulnerabilities (R-05)
-- [ ] Update Zod schema in `src/pages/api/snapshots/index.ts` to strictly validate `date` inputs.
-- [ ] Sanitize 500 error responses in `src/pages/api/snapshots/index.ts` and `src/pages/api/snapshots/[id].ts` to avoid leaking database messages.
+
+- [x] Update Zod schema in `src/pages/api/snapshots/index.ts` to strictly validate `date` inputs.
+- [x] Sanitize 500 error responses in `src/pages/api/snapshots/index.ts` and `src/pages/api/snapshots/[id].ts` to avoid leaking database messages.
 
 ### Phase 3: Test Accounts CRUD & Auth Boundaries
+
 - [ ] Write integration test for Account Creation (POST) including Zod validation failures (R-04).
 - [ ] Write integration test for Account Soft-Deletion (DELETE) and ensuring `GET` filters inactive accounts.
 - [ ] Write cross-user auth boundary tests proving User B cannot edit/delete User A's accounts.
 
 ### Phase 4: Test Snapshots SSR Routes
+
 - [ ] Write integration tests for Snapshot standard CRUD operations.
 - [ ] Write tests verifying the date validation bug fix (assert 400 Bad Request instead of 500).
