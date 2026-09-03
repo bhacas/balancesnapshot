@@ -58,11 +58,11 @@ Implement true HTTP integration tests for the Account management and Snapshot AP
 
 ### Phase 3: Test Accounts CRUD & Auth Boundaries
 
-- [x] Write integration test for Account Creation (POST) including Zod validation failures (R-04).
-- [x] Write integration test for Account Soft-Deletion (DELETE) and ensuring `GET` filters inactive accounts.
-- [x] Write cross-user auth boundary tests proving User B cannot edit/delete User A's accounts.
+- [x] Write integration test for Account Creation (POST) including Zod validation failures (R-04). — 4108380
+- [x] Write integration test for Account Soft-Deletion (DELETE) and ensuring `GET` filters inactive accounts. — 4108380
+- [x] Write cross-user auth boundary tests proving User B cannot edit/delete User A's accounts. — 4108380
 
 ### Phase 4: Test Snapshots SSR Routes
 
-- [ ] Write integration tests for Snapshot standard CRUD operations.
-- [ ] Write tests verifying the date validation bug fix (assert 400 Bad Request instead of 500).
+- [x] Write integration tests for Snapshot standard CRUD operations.
+- [x] Write tests verifying the date validation bug fix (assert 400 Bad Request instead of 500).

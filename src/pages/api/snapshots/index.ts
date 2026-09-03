@@ -115,7 +115,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const { data: snapshotId, error: rpcError } = await supabase.rpc("create_snapshot_with_entries", {
       p_entries: requestedEntries,
-      ...(date ? { p_date: date } : {}),
+      p_date: date || null,
     });
 
     if (rpcError || !snapshotId) {

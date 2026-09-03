@@ -73,7 +73,7 @@ export const PUT: APIRoute = async ({ request, cookies, params }) => {
     const { error: rpcError } = await supabase.rpc("update_snapshot_with_entries", {
       p_snapshot_id: id,
       p_entries: entries,
-      ...(date ? { p_date: date } : {}),
+      p_date: date || null,
     });
 
     if (rpcError) {
