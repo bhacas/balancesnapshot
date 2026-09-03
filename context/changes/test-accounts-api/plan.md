@@ -64,5 +64,9 @@ Implement true HTTP integration tests for the Account management and Snapshot AP
 
 ### Phase 4: Test Snapshots SSR Routes
 
-- [x] Write integration tests for Snapshot standard CRUD operations.
-- [x] Write tests verifying the date validation bug fix (assert 400 Bad Request instead of 500).
+- [x] Write integration tests for Snapshot standard CRUD operations. — aabaad8
+- [x] Write tests verifying the date validation bug fix (assert 400 Bad Request instead of 500). — aabaad8
+
+### Addendum
+- Unplanned change: Explicitly pass `p_date: date || null` to Supabase RPCs `create_snapshot_with_entries` and `update_snapshot_with_entries` to workaround a PostgREST function overloading / schema cache bug that caused 500 errors.
+- Unplanned change: Added a basic API auth smoke test (`setup.api.ts`) and Playwright `.gitignore` entries, necessary for the test suite setup.

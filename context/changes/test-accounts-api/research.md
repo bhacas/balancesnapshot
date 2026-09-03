@@ -25,9 +25,9 @@ test-accounts-api (Account CRUD API routes and SSR error handling / R-04 and R-0
 
 ## Summary
 
-The API routes in `src/pages/api/` handle Account and Snapshot operations. 
+The API routes in `src/pages/api/` handle Account and Snapshot operations.
 
-- **Account CRUD (R-04)**: Accounts are validated robustly using Zod (`z.enum(["asset", "liability"])`) ensuring misclassification at the API boundary is impossible. 
+- **Account CRUD (R-04)**: Accounts are validated robustly using Zod (`z.enum(["asset", "liability"])`) ensuring misclassification at the API boundary is impossible.
 - **SSR Route Failures (R-05)**: There are notable issues in the API routes that can lead to 500 errors in Cloudflare. Missing env vars correctly trigger a 500, but there's an issue where malformed dates bypass Zod validation (using `.optional()`) and crash the underlying Postgres RPC, returning a 500. Error handling also leaks raw Postgres error messages to the client.
 - **Testing Pattern**: There are currently no API/Integration tests configured for Astro endpoints in this repo. Testing API routes will require configuring Vitest (or a similar tool) to hit the endpoints, or factoring out the route logic into testable controller functions, or using Playwright API testing.
 

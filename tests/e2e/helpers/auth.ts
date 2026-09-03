@@ -1,8 +1,8 @@
 import { createClient } from "@supabase/supabase-js";
 import { request } from "@playwright/test";
 
-export const getSupabaseUrl = () => process.env.SUPABASE_URL || "http://127.0.0.1:54321";
-export const getSupabaseKey = () => process.env.SUPABASE_KEY || "sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH";
+export const getSupabaseUrl = () => process.env.SUPABASE_URL ?? "http://127.0.0.1:54321";
+export const getSupabaseKey = () => process.env.SUPABASE_KEY ?? "sb_publishable_ACJWlzQHlZjBrEguHvfOxg_3BJgxAaH";
 
 export const authClient = createClient(getSupabaseUrl(), getSupabaseKey(), {
   auth: { autoRefreshToken: false, persistSession: false },
@@ -15,20 +15,22 @@ export async function createTestUser() {
   // Create user in Supabase
   const { data, error } = await authClient.auth.signUp({ email, password });
   if (error) throw new Error("Failed to create test user: " + error.message);
-  
+
   // Create an API request context
   const apiContext = await request.newContext({
-    baseURL: 'http://localhost:4321',
+    baseURL: "http://localhost:4321",
+    extraHTTPHeaders: { Origin: "http://localhost:4321" },
   });
 
   // Call the Astro signin route to populate cookies in the context
-  await apiContext.post('/api/auth/signin', {
+  await apiContext.post("/api/auth/signin", {
     headers: {
-      'Origin': 'http://localhost:4321',
+      Origin: "http://localhost:4321",
     },
     form: { email, password },
     maxRedirects: 0,
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   return { user: data.user!, email, password, apiContext };
 }

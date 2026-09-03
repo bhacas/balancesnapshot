@@ -5,7 +5,7 @@ test.describe('Accounts API CRUD & Auth Boundaries', () => {
   let userA: Awaited<ReturnType<typeof createTestUser>>;
   let userB: Awaited<ReturnType<typeof createTestUser>>;
 
-  test.beforeAll(async () => {
+  test.beforeEach(async () => {
     userA = await createTestUser();
     userB = await createTestUser();
   });

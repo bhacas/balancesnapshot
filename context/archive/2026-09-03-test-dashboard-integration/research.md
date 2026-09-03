@@ -30,6 +30,7 @@ The dashboard computes net worth entirely on the client, mapping snapshot entrie
 ## Detailed Findings
 
 ### Dashboard Calculation & Stability
+
 - **Dependencies**: Uses `snapshotsStore`, `accountsStore`, `storeLoading`, and `storeError` from `@/lib/store` ([`src/components/NetWorthDashboard.tsx:7`](https://github.com/bhacas/balancesnapshot/blob/e330bac27432b75385bc9211d9caed32aa4159ff/src/components/NetWorthDashboard.tsx#L7)).
 - **Net Worth Calculation**: Iterates over snapshot entries, referencing an `accountTypeMap`. Assets are added, liabilities are subtracted ([`src/components/NetWorthDashboard.tsx:69-75`](https://github.com/bhacas/balancesnapshot/blob/e330bac27432b75385bc9211d9caed32aa4159ff/src/components/NetWorthDashboard.tsx#L69-L75)).
 - **Edge Cases**:
@@ -37,6 +38,7 @@ The dashboard computes net worth entirely on the client, mapping snapshot entrie
   - **Empty States**: Handled gracefully. If `snapshots.length === 0`, a fallback is shown ([`src/components/NetWorthDashboard.tsx:95`](https://github.com/bhacas/balancesnapshot/blob/e330bac27432b75385bc9211d9caed32aa4159ff/src/components/NetWorthDashboard.tsx#L95)). Month-over-Month calculation avoids division-by-zero ([`src/components/NetWorthDashboard.tsx:107`](https://github.com/bhacas/balancesnapshot/blob/e330bac27432b75385bc9211d9caed32aa4159ff/src/components/NetWorthDashboard.tsx#L107)).
 
 ### Testing Patterns
+
 - **Vitest Configuration**: `vitest.config.ts` specifies `environment: "node"`. There is no `jsdom` or `happy-dom`.
 - **Precedent**: The historical decision in `context/archive/2026-08-26-test-bootstrap-snapshot-logic/plan.md` explicitly opted out of component testing in Vitest, favoring testing pure logic functions instead.
 - **E2E Approach**: The preferred way to test UI interactions and integration is via Playwright, as seen in `tests/e2e/account-persistence.spec.ts` and the `test-plan.md` update (Phase 4).

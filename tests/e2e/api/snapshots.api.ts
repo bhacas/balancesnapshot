@@ -5,7 +5,7 @@ test.describe('Snapshots API CRUD & Validation', () => {
   let user: Awaited<ReturnType<typeof createTestUser>>;
   let accountId: string;
 
-  test.beforeAll(async () => {
+  test.beforeEach(async () => {
     user = await createTestUser();
     
     // Create an account to use in snapshot tests

@@ -20,8 +20,9 @@ Bootstrap Vitest as the testing framework and implement the missing "implicit ca
 - The test runner proves this logic is rock solid before UI wiring.
 
 ### Key Discoveries:
+
 - `src/components/SnapshotManager.tsx:190` - `getInitialBalances` currently returns an empty object if `!initialSnapshot`. This is the exact injection point for the new logic.
-- `src/pages/api/snapshots/index.ts:96` - The backend API rejects the payload if it's missing any active account balance, confirming the pre-fill *must* happen on the frontend.
+- `src/pages/api/snapshots/index.ts:96` - The backend API rejects the payload if it's missing any active account balance, confirming the pre-fill _must_ happen on the frontend.
 - `src/lib/store.ts` - `snapshotsStore` holds `SnapshotWithEntries[]` in descending order (`created_at`). The first item is always the latest snapshot.
 
 ## What We're NOT Doing
@@ -39,8 +40,8 @@ Bootstrap Vitest as the testing framework and implement the missing "implicit ca
 ## Critical Implementation Details
 
 - **Input format:** The pure function should return `Record<string, string>` (mapping `account_id` to a stringified float like `"1250.00"` or `"0"`) so the React inputs can safely hold the state while the user types.
-- **Latest Snapshot Discovery:** When creating a *new* snapshot, the logic must find the absolute latest snapshot from the store to use as the base.
-- **Historical Edits:** When editing an *existing* snapshot, the logic must ONLY use the balances from the snapshot being edited, explicitly ignoring newer or older snapshots.
+- **Latest Snapshot Discovery:** When creating a _new_ snapshot, the logic must find the absolute latest snapshot from the store to use as the base.
+- **Historical Edits:** When editing an _existing_ snapshot, the logic must ONLY use the balances from the snapshot being edited, explicitly ignoring newer or older snapshots.
 
 ## Progress
 
