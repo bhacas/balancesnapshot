@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 
 import { useStore } from "@nanostores/react";
 import { snapshotsStore, accountsStore, storeLoading, storeError, fetchDashboardData } from "@/lib/store";
+import { calculateChartData } from "@/lib/snapshot-logic";
 
 export default function NetWorthDashboard() {
   const snapshots = useStore(snapshotsStore);
@@ -33,56 +34,11 @@ export default function NetWorthDashboard() {
     return Array.from(months).sort((a, b) => b.localeCompare(a));
   }, [snapshots]);
 
-  const chartData = useMemo(() => {
-    const sorted = [...snapshots].sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
+  const [now] = useState(() => Date.now());
 
-    let filtered = sorted;
-    const now = new Date().getTime();
-    if (timeframe === "30days") {
-      filtered = sorted.filter((s) => new Date(s.created_at).getTime() >= now - 30 * 24 * 60 * 60 * 1000);
-    } else if (timeframe === "60days") {
-      filtered = sorted.filter((s) => new Date(s.created_at).getTime() >= now - 60 * 24 * 60 * 60 * 1000);
-    } else if (timeframe === "90days") {
-      filtered = sorted.filter((s) => new Date(s.created_at).getTime() >= now - 90 * 24 * 60 * 60 * 1000);
-    } else if (timeframe === "thisYear") {
-      const startOfYear = new Date(new Date().getFullYear(), 0, 1).getTime();
-      filtered = sorted.filter((s) => new Date(s.created_at).getTime() >= startOfYear);
-    } else if (timeframe.startsWith("year-")) {
-      const year = parseInt(timeframe.split("-")[1], 10);
-      filtered = sorted.filter((s) => new Date(s.created_at).getFullYear() === year);
-    } else if (timeframe.startsWith("month-")) {
-      const [, y, m] = timeframe.split("-");
-      const year = parseInt(y, 10);
-      const month = parseInt(m, 10) - 1;
-      filtered = sorted.filter((s) => {
-        const d = new Date(s.created_at);
-        return d.getFullYear() === year && d.getMonth() === month;
-      });
-    }
-
-    const accountTypeMap = new Map(accounts.map((a) => [a.id, a.type]));
-
-    return filtered.map((snap) => {
-      let assets = 0;
-      let liabilities = 0;
-
-      snap.entries.forEach((entry) => {
-        const type = accountTypeMap.get(entry.account_id);
-        if (type === "asset") assets += entry.balance;
-        if (type === "liability") liabilities += entry.balance;
-      });
-
-      const netWorth = assets - liabilities;
-
-      return {
-        id: snap.id,
-        date: new Date(snap.created_at).toLocaleDateString(undefined, { month: "short", year: "numeric" }),
-        netWorth,
-        assets,
-        liabilities,
-      };
-    });
-  }, [snapshots, accounts, timeframe]);
+  const { chartData, currentNetWorth, previousNetWorth, momChange } = useMemo(() => {
+    return calculateChartData(snapshots, accounts, timeframe, now);
+  }, [snapshots, accounts, timeframe, now]);
 
   if (error) {
     return <div className="text-destructive p-8 text-center">Failed to load dashboard data.</div>;
@@ -98,14 +54,6 @@ export default function NetWorthDashboard() {
         Record your first snapshot to see your net worth trend.
       </div>
     );
-  }
-
-  const currentNetWorth = chartData.length > 0 ? chartData[chartData.length - 1].netWorth : 0;
-  const previousNetWorth = chartData.length > 1 ? chartData[chartData.length - 2].netWorth : null;
-
-  let momChange = 0;
-  if (previousNetWorth !== null && previousNetWorth !== 0) {
-    momChange = ((currentNetWorth - previousNetWorth) / Math.abs(previousNetWorth)) * 100;
   }
 
   return (
