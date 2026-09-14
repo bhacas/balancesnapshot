@@ -15,7 +15,6 @@
 | R-03 | Snapshot implicit carry-over logic breaks                             | High (invalid net worth)             | Medium     | PRD Business Logic, Roadmap S-02                              |
 | R-04 | Account CRUD misclassification (Asset/Liability)                      | Medium                               | Low        | PRD US-01                                                     |
 | R-05 | SSR / API route failures in production (Cloudflare)                   | High (app offline)                   | Medium     | AGENTS.md, Hot-spot `src/pages/api/snapshots/[id].ts`         |
-| R-06 | E2E flow break: Adding account and snapshot does not reflect on chart | High (critical user journey failure) | Medium     | User request                                                  |
 
 ## 3. Phased Rollout
 
@@ -24,7 +23,6 @@
 | 1     | `test-bootstrap-snapshot-logic` | Bootstrap test runner and cover core snapshot carry-over/edit logic   | R-01, R-03    | Unit / Integration      | complete    |
 | 2     | `test-dashboard-integration`    | Cover Net Worth dashboard data calculations and component stability   | R-02          | Component / Integration | complete    |
 | 3     | `test-accounts-api`             | Cover account management and backend SSR API routes                   | R-04, R-05    | Integration             | not started |
-| 4     | `test-e2e-dashboard-flow`       | E2E coverage: account creation -> snapshot recording -> chart display | R-06          | E2E                     | not started |
 
 ## 4. Stack & Constraints
 
@@ -45,7 +43,6 @@
 | Linting / Formatting     | Pre-existing  | `npm run lint` and `npm run format`                        |
 | Unit / Integration Tests | Phase 1       | Run on PR to `master` (requires adding to CI)              |
 | Component Tests          | Phase 2       | Ensure dashboard renders correctly                         |
-| E2E Tests                | Phase 4       | Critical user journey validation in browser via Playwright |
 
 ## 6. Cookbook
 
